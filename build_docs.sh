@@ -4,7 +4,7 @@
 set -e
 
 # Define variables
-ENV_NAME="java-docs"
+ENV_NAME="java-tutorial"
 DOCS_SOURCE="docs/source"
 DOCS_BUILD="docs/build/html"
 GITHUB_REPO="git@github.com:your-username/your-repo.git"
