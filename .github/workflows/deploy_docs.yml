@@ -34,6 +34,9 @@ jobs:
           conda activate java-tutorial
           sphinx-build -b html docs/source docs/build/html
 
+      - name: Ensure GitHub Pages Can Find Docs
+        run: touch docs/build/html/.nojekyll
+
       - name: Commit Built Documentation
         shell: bash -l {0}
         env:
