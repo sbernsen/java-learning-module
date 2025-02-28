@@ -27,10 +27,10 @@ echo "Deploying to GitHub Pages..."
 cd "$DOCS_BUILD"
 git init
 git remote add origin "$GITHUB_REPO"
-git checkout -b gh-pages
+git checkout -b main
 git add .
 git commit -m "Deploy latest docs"
-git push --force origin gh-pages
+git push --force origin main
 
 echo "Documentation successfully deployed to GitHub Pages!"
 
