@@ -3,7 +3,7 @@ name: Deploy Documentation
 on:
   push:
     branches:
-      - main  # Trigger when pushing to the main branch
+      - main  # Runs when pushing to main
 
 jobs:
   build:
@@ -20,14 +20,14 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install sphinx sphinx-rtd-theme
+          pip install sphinx sphinx-rtd-theme myst-parser
 
       - name: Build Documentation
         run: |
-          sphinx-build -b html docs/ docs/_build/html
+          sphinx-build -b html docs/source docs/build/html
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: main
-          folder: docs/_build/html
+          branch: gh-pages
+          folder: docs/build/html
