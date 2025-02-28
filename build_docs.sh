@@ -1,22 +1,38 @@
 #!/bin/bash
 
-# Exit if any command fails
+# Exit immediately if a command fails
 set -e
 
-# Define the documentation directory
-DOCS_DIR="docs"
-BUILD_DIR="$DOCS_DIR/_build" 
+# Define variables
+ENV_NAME="java-docs"
+DOCS_SOURCE="docs/source"
+DOCS_BUILD="docs/build/html"
+GITHUB_REPO="git@github.com:your-username/your-repo.git"
 
-conda activate java-tutorial
+# Activate Conda environment
+echo "Activating Conda environment..."
+source "$(conda info --base)/etc/profile.d/conda.sh"
+conda activate "$ENV_NAME"
 
-# Remove old build directory
-echo "Cleaning old documentation build..."
-rm -rf "$BUILD_DIR"
+# Clean old build
+echo "Cleaning previous build..."
+rm -rf "$DOCS_BUILD"
 
-# Build the documentation
-echo "Building documentation..."
-sphinx-build -b html "$DOCS_DIR" "$BUILD_DIR"
+# Build documentation
+echo "Building Sphinx documentation..."
+sphinx-build -b html "$DOCS_SOURCE" "$DOCS_BUILD"
 
-echo "Documentation successfully built! View it by opening:"
-echo "$BUILD_DIR/index.html"
+# Deploy to GitHub Pages
+echo "Deploying to GitHub Pages..."
+cd "$DOCS_BUILD"
+git init
+git remote add origin "$GITHUB_REPO"
+git checkout -b gh-pages
+git add .
+git commit -m "Deploy latest docs"
+git push --force origin gh-pages
 
+echo "Documentation successfully deployed to GitHub Pages!"
+
+# Deactivate Conda environment
+conda deactivate
