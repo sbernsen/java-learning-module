@@ -7,7 +7,7 @@ set -e
 ENV_NAME="java-tutorial"
 DOCS_SOURCE="docs/source"
 DOCS_BUILD="docs/build/html"
-GITHUB_REPO="git@github.com:your-username/your-repo.git"
+GITHUB_REPO="git@github.com:sbernsen/java-learning-module.git"
 
 # Activate Conda environment
 echo "Activating Conda environment..."
@@ -22,15 +22,14 @@ rm -rf "$DOCS_BUILD"
 echo "Building Sphinx documentation..."
 sphinx-build -b html "$DOCS_SOURCE" "$DOCS_BUILD"
 
-# Deploy to GitHub Pages
-echo "Deploying to GitHub Pages..."
-cd "$DOCS_BUILD"
-git init
-git remote add origin "$GITHUB_REPO"
-git checkout -b main
-git add .
-git commit -m "Deploy latest docs"
-git push --force origin main
+# Ensure GitHub Pages Can Find Docs
+touch "$DOCS_BUILD/.nojekyll"
+
+# Commit built documentation
+echo "Committing built documentation..."
+git add "$DOCS_BUILD"
+git commit -m "Update built documentation [skip ci]" || echo "No changes to commit"
+git push origin main
 
 echo "Documentation successfully deployed to GitHub Pages!"
 
