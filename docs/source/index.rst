@@ -14,4 +14,6 @@ documentation for details.
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
+   
+   ../../modules/java-tutorial/src/lesson1/lesson.1-0
+   ../../modules/java-tutorial/src/lesson1/lesson.1-1
