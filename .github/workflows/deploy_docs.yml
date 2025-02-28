@@ -1,0 +1,33 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches:
+      - main  # Trigger when pushing to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: |
+          pip install sphinx sphinx-rtd-theme
+
+      - name: Build Documentation
+        run: |
+          sphinx-build -b html docs/ docs/_build/html
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: main
+          folder: docs/_build/html
